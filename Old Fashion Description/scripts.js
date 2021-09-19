@@ -19,6 +19,7 @@ function Less(event) {
     content.classList.add('compact')
     content.classList.remove('expanded')
 }
+
 document.querySelectorAll("#more")[1].addEventListener("click", More)
 document.querySelectorAll("#less")[1].addEventListener("click", Less)
 
