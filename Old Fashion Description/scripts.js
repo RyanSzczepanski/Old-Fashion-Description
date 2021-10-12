@@ -40,14 +40,14 @@ function start() {
     });
     
     document.querySelectorAll("#more").forEach(function(element){
-        if (element.querySelector(".more-button")) {
+        if (element.querySelectorAll(".more-button").length != 0) {
             showMoreButton = element
         }
     })
     
 
     document.querySelectorAll("#less").forEach(function(element){
-        if (element.querySelector(".less-button")) {
+        if (element.querySelectorAll(".less-button").length != 0) {
             showLessButton = element
         }
     })
