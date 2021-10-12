@@ -1,106 +1,100 @@
-//Old Description Box
-var content
-//New Description Box
-var badcontent
-//Show More Button
-var showMoreButton
-//Show Less button
-var showLessButton
-
-var collapsed = true;
+var description;
+var badDescription;
+var showMoreButton;
+var showLessButton;
 
 function checkReadyState() {
-    if(document.readyState != "complete") {
-       window.setTimeout(checkReadyState, 1000) /* this checks the page every 100 milliseconds */
-    } else {
-        start()
-    }
+  if (document.readyState != "complete") {
+    window.setTimeout(
+      checkReadyState,
+      100
+    ); /* this checks the page every 100 milliseconds */
+  } else {
+    start();
+  }
 }
-checkReadyState();
+//checkReadyState();
 
-function start() {
-    //Set Vars
-    
-    waitForEl('ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-structured-description"]')
-    .then(() => {
-        badcontent = document.querySelector('ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-structured-description"]')
-        if (badcontent != null){
-            badcontent.remove()
-        }
-    })
+SetVars();
 
-    //document.readyState is equal to complete before the entire page loads what an oversight
-    waitForEl('ytd-expander.ytd-video-secondary-info-renderer')
-    .then(() => {
-        content = document.querySelector('ytd-expander.ytd-video-secondary-info-renderer')
-	if (!collapsed){
-            More();
-	}
-    });
-    
-    document.querySelectorAll("#more").forEach(function(element){
-        if (element.querySelectorAll(".more-button").length != 0 && showMoreButton == undefined){
-            showMoreButton = element
-        }
-    })
+function SetVars() {
+  //Set Vars
 
-    document.querySelectorAll("#less").forEach(function(element){
-        if (element.querySelectorAll(".less-button").length != 0 && showLessButton == undefined) {
-            showLessButton = element
-        }
-    })
-    
-    //Set Events
-    showMoreButton.addEventListener("click", More)
-    showLessButton.addEventListener("click", Less)
+  //More Button
+  waitForEl('tp-yt-paper-button[id="more"]').then(() => {
+    showMoreButton = document.querySelector('tp-yt-paper-button[id="more"]');
+    showMoreButton.addEventListener("click", More);
+    //console.log(showMoreButton);
+  });
+
+  //Less Button
+  waitForEl('tp-yt-paper-button[id="less"]').then(() => {
+    showLessButton = document.querySelector('tp-yt-paper-button[id="less"]');
+    //showLessButton.addEventListener("click", Less);
+    //console.log(showLessButton);
+  });
+
+  //New Description
+  waitForEl('ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-structured-description"]').then(() => {
+    badDescription = document.querySelector('ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-structured-description"]');
+    //console.log(badDescription);
+    //Check if there actually is the new description to prevent error
+    if (badDescription != null) {
+      badDescription.remove();
+    }
+  });
+
+  //Old Description
+  waitForEl('ytd-expander.ytd-video-secondary-info-renderer').then(() => {
+    description = document.querySelector('ytd-expander.ytd-video-secondary-info-renderer');
+    //console.log(description);
+    //Incase the more button was clicked and the old description has not expanded yet then expand it
+    if (showMoreButton.hasAttribute('hidden')) {
+      More();
+    }
+  });
 }
 
 function More() {
-    collapsed = false;
-    content.removeAttribute("collapsed");
+  description.removeAttribute("collapsed");
 }
 
 // Showless button stil actualy adds the collapsed atribute
 // If I had to guess it is because they dont expect the showless button to show so they didnt remove the functionality in case the description is expanded
 
-function Less() {
-    collapsed = true;
-    content.setAttribute("collapsed", "");
-}
+// function Less() {
+//   description.setAttribute("collapsed", "");
+// }
 
-//Waits for the element to be loaded 
-    
+//Waits for the element to be loaded
 function waitForEl(el) {
-    return new Promise((resolve, reject) => {
-        const intervalId = setInterval(() => {
-            if (document.querySelector(el)) {
-                clearInterval(intervalId);
-                resolve();
-            }
-        }, 1000);
-    });
+  return new Promise((resolve, reject) => {
+    const intervalId = setInterval(() => {
+      if (document.querySelector(el)) {
+        clearInterval(intervalId);
+        resolve();
+      }
+    }, 100);
+  });
 }
-  
-//Check for changing video to set elemets agian
 
+//Check for changing video to set elemets agian
 var oldHref = document.location.href;
 
-window.onload = function() {
-
-    var bodyList = document.querySelector("body")
-    var observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (oldHref != document.location.href) {
-                oldHref = document.location.href;
-                checkReadyState()
-            }
-        });
+window.onload = function () {
+  var bodyList = document.querySelector("body");
+  var observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      if (oldHref != document.location.href) {
+        oldHref = document.location.href;
+        checkReadyState();
+      }
     });
-    var config = {
-        childList: true,
-        subtree: true
-    };
+  });
+  var config = {
+    childList: true,
+    subtree: true,
+  };
 
-    observer.observe(bodyList, config);
-
+  observer.observe(bodyList, config);
 };
