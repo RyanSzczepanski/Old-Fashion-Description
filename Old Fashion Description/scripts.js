@@ -24,7 +24,6 @@ function start() {
     waitForEl('ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-structured-description"]')
     .then(() => {
         badcontent = document.querySelector('ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-structured-description"]')
-
         if (badcontent != null){
             badcontent.remove()
         }
@@ -40,14 +39,13 @@ function start() {
     });
     
     document.querySelectorAll("#more").forEach(function(element){
-        if (element.querySelectorAll(".more-button").length != 0) {
+        if (element.querySelectorAll(".more-button").length != 0 && showMoreButton == undefined){
             showMoreButton = element
         }
     })
-    
 
     document.querySelectorAll("#less").forEach(function(element){
-        if (element.querySelectorAll(".less-button").length != 0) {
+        if (element.querySelectorAll(".less-button").length != 0 && showLessButton == undefined) {
             showLessButton = element
         }
     })
