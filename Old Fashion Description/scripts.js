@@ -7,7 +7,7 @@ var showMoreButton
 //Show Less button
 var showLessButton
 
-var collapsed;
+var collapsed = true;
 
 function checkReadyState() {
     if(document.readyState != "complete") {
