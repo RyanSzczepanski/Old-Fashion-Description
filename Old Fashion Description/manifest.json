@@ -2,7 +2,7 @@
     "manifest_version": 2,
 
     "name": "Old Fashion Description",
-    "version": "0.1.2",
+    "version": "1.0.0",
     "description": "Reverts the YouTube description back to what it used to be",
 
     "content_scripts": [{
