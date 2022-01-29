@@ -1,6 +1,7 @@
 # Old Fashion Description
 
-Chrome extension to revert YouTube's description change
+Revert YouTube's description change.
+Available as a Chrome extension or a [userscript](https://github.com/RyanSzczepanski/Old-Fashion-Description/raw/main/Userscript/Old Fashion Description.user.js).
 
 # Installation
 
