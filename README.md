@@ -1,7 +1,7 @@
 # Old Fashion Description
 
 Revert YouTube's description change.
-Available as a Chrome extension or a [userscript](https://github.com/RyanSzczepanski/Old-Fashion-Description/raw/main/Userscript/Old Fashion Description.user.js).
+Available as a Chrome extension or a [userscript](https://github.com/RyanSzczepanski/Old-Fashion-Description/raw/main/Userscript/Old%20Fashion%20Description.user.js).
 
 # Installation
 
