@@ -41,6 +41,8 @@ function SetVars() {
     //Check if there actually is the new description to prevent error
     if (badDescription != null) {
       badDescription.remove();
+      //patch for removing the new description on newer versions of the website
+      badDescription.style.visibility = "ENGAGEMENT_PANEL_VISIBILITY_HIDDEN";
     }
   });
 
